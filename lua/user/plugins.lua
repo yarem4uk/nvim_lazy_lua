@@ -39,6 +39,9 @@ require("lazy").setup({
 
   -- lsp configurations 
   {'neovim/nvim-lspconfig'},
+  { 'williamboman/mason.nvim',
+    build = ':MasonUpdate' -- :MasonUpdate updates registry contents 
+  },
 
   -- treesitter
   {'nvim-treesitter/nvim-treesitter',

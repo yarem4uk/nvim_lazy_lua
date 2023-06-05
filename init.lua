@@ -8,3 +8,5 @@ require('user.treesitter')
 require('user.lualine')
 require('user.telescope')
 
+require('lsp.lspconfig')
+require('lsp.mason')

@@ -88,11 +88,6 @@ tree.setup({
   },
   view = {
     width = 24,
-    mappings = {
-      list = {
-        { key = 'h', action = 'dir_up' },
-      },
-    },
   },
   renderer = {
     group_empty = true,
