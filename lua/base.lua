@@ -12,7 +12,6 @@ vim.scriptencoding = 'utf-8'
 opt.encoding = 'utf-8'
 opt.fileencoding = 'utf-8'
 
-
 opt.title = true
 opt.ttyfast = true
 opt.lazyredraw = true

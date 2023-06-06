@@ -59,11 +59,9 @@ M.setup = function()
   vim.diagnostic.config(config)
 end
 
-
 M.on_attach = function(_, bufnr)
   keymap(bufnr)
 end
-
 
 M.capabilities = function()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
