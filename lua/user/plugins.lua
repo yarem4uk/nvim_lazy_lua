@@ -45,6 +45,15 @@ require("lazy").setup({
 
   {'williamboman/mason-lspconfig.nvim'},
 
+  -- Autocompletion cmp
+  {'hrsh7th/cmp-nvim-lsp'},
+  {'hrsh7th/cmp-path'},
+  {'hrsh7th/cmp-cmdline'},
+  {'hrsh7th/nvim-cmp'},
+
+  -- Toggleterminal
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
+
   -- treesitter
   {'nvim-treesitter/nvim-treesitter',
     run = function()
