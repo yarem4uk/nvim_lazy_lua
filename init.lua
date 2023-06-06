@@ -13,6 +13,7 @@ require('user.telescope')
 require('user.cmp')
 require('user.toggleterm')
 require('user.luasnip')
+require('user.null-ls')
 
 -- lsp
 require('lsp.lspconfig')
