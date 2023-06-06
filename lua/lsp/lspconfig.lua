@@ -1,58 +1,79 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
--- Sntup language servers.
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup {}
-lspconfig.tsserver.setup {}
-lspconfig.lua_ls.setup {}
+local lspconfig_ok, lspconfig = pcall(require, 'lspconfig')
+if not lspconfig_ok then
+  return
+end
 
-lspconfig.cssls.setup {
-    capabilities = capabilities
-}
-lspconfig.rust_analyzer.setup {
-  settings = {
-    ['rust-analyzer'] = {
-            diagnostics = {
-                enable = true,
-                experimental = {
-                    enable = true,
-                },
-            },
+
+local mason_lspconfig_ok, mason_lspconfig = pcall(require, 'mason-lspconfig')
+if not mason_lspconfig_ok then
+  return
+end
+
+local mason_ok, mason = pcall(require, 'mason')
+if not mason_ok then
+  return
+end
+
+-- local mason_null_ls_ok, mason_null_ls = pcall(require, 'mason-null-ls')
+-- if not mason_null_ls_ok then
+--   return
+-- end
+
+local servers = {
+  html = {},
+  pyright = {},
+  rust_analyzer = {},
+  tsserver = {},
+  jsonls = {},
+  lua_ls = {
+    Lua = {
+      workspace = {
+        checkThirdParty = false,
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.stdpath('config') .. '/lua'] = true,
+        },
+      },
+      telemetry = { enable = false },
+      diagnostics = {
+        globals = { 'vim', 'use' },
+      },
     },
   },
 }
--- Global mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-vim.keymap.set('n', '<leader>lD', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>ld', vim.diagnostic.setloclist)
 
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
-    group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-    callback = function(ev)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+require('lsp.handlers').setup()
 
-        local opts = {buffer = ev.buf}
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-        -- vim.keymap
-        --     .set('n', '<Leader>sa', vim.lsp.buf.add_workspace_folder, opts)
-        -- vim.keymap.set('n', '<Leader>sr', vim.lsp.buf.remove_workspace_folder,
-        --                opts)
-        -- vim.keymap.set('n', '<Leader>sl', function()
-        --     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        -- end, opts)
-        -- vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, opts)
-        vim.keymap.set({'n', 'v'}, '<Leader>la', vim.lsp.buf.code_action, opts)
-        -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<Leader>lf',
-                       function() vim.lsp.buf.format {async = true} end, opts)
-    end
+mason.setup({
+  ui = {
+    icons = {
+      package_installed = '✓',
+      package_pending = '➜',
+      package_uninstalled = '✗',
+    },
+  },
 })
+
+mason_lspconfig.setup({
+  ensure_installed = vim.tbl_keys(servers),
+})
+
+mason_lspconfig.setup_handlers({
+  function(server_name)
+    lspconfig[server_name].setup({
+      on_attach = require('lsp.handlers').on_attach,
+      capabilities = require('lsp.handlers').capabilities(server_name),
+      settings = servers[server_name],
+    })
+  end,
+})
+
+-- mason_null_ls.setup({
+--   ensure_installed = {
+--     'prettier',
+--     'eslint_d',
+--     'stylelua',
+--     'flake8',
+--     'black',
+--   },
+-- })

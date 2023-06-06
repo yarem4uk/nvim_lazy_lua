@@ -96,5 +96,9 @@ map('', '<leader>p', ':r ~/.vbuf<cr>', silent)
 map('', '<leader>q', ':q!<cr>', silent)
 map('', '<leader>o', ':only<cr>', silent)
 
+-- terminal
+-- map('n', '<leader>tf', ':ToggleTerm direction=float<CR>')
+-- map('n', '<leader>th', ':ToggleTerm direction=horizontal<CR>')
+
 -- quickly select the text I just pasted.
 map('n', 'gV', '`[v`]', silent)

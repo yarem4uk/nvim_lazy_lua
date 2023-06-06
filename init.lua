@@ -12,7 +12,7 @@ require('user.lualine')
 require('user.telescope')
 require('user.cmp')
 require('user.toggleterm')
+require('user.luasnip')
 
 -- lsp
 require('lsp.lspconfig')
-require('lsp.mason')

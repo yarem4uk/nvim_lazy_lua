@@ -3,12 +3,12 @@ if not cmp_ok then
   return
 end
 
--- local lua_ok, ls = pcall(require, 'luasnip')
--- if not lua_ok then
---   return
--- end
+local lua_ok, ls = pcall(require, 'luasnip')
+if not lua_ok then
+  return
+end
 
--- require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/snippets' })
+require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/snippets' })
 
 cmp.setup({
   -- completion = {
@@ -48,7 +48,7 @@ cmp.setup({
   }),
   sources = {
     { name = 'nvim_lsp' },
-    -- { name = 'luasnip' },
+    { name = 'luasnip' },
   },
 })
 
