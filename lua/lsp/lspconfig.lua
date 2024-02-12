@@ -16,8 +16,8 @@ end
 local servers = {
   html = {},
   pyright = {},
-  rust_analyzer = {},
-  tsserver = {},
+  -- rust_analyzer = {},
+  -- tsserver = {},
   jsonls = {},
   lua_ls = {
     Lua = {
@@ -56,7 +56,7 @@ mason_lspconfig.setup_handlers({
   function(server_name)
     lspconfig[server_name].setup({
       on_attach = require('lsp.handlers').on_attach,
-      capabilities = require('lsp.handlers').capabilities(server_name),
+      capabilities = require('lsp.handlers').capabilities(),
       settings = servers[server_name],
     })
   end,

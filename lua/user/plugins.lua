@@ -10,6 +10,7 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+print('la:', lazypath)
 
 require('lazy').setup({
   { 'nvim-lua/popup.nvim' },
@@ -42,8 +43,9 @@ require('lazy').setup({
     'williamboman/mason.nvim',
     build = ':MasonUpdate',
   },
-
   { 'williamboman/mason-lspconfig.nvim' },
+  -- typescript
+  { 'pmizio/typescript-tools.nvim' },
 
   -- Autocompletion cmp
   { 'hrsh7th/cmp-nvim-lsp' },

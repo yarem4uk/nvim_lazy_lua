@@ -17,3 +17,4 @@ require('user.null-ls')
 
 -- lsp
 require('lsp.lspconfig')
+require('lsp.lsp-typescript')

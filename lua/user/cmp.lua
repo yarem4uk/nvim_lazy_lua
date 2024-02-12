@@ -11,9 +11,9 @@ end
 require('luasnip.loaders.from_lua').load({ paths = '~/.config/nvim/snippets' })
 
 cmp.setup({
-  -- completion = {
-  -- autocomplete = false,
-  -- },
+  completion = {
+    autocomplete = false,
+  },
   snippet = {
     expand = function(args)
       ls.lsp_expand(args.body)
