@@ -9,7 +9,7 @@ local builtin = require('telescope.builtin')
 telescope.setup({
   defaults = {
     -- sorting_strategy = 'ascending',
-    file_ignore_patterns = { 'node_modules', '.git' },
+    file_ignore_patterns = { 'node_modules', '.git', 'package.json', 'package%-lock.json' },
     path_display = { 'smart' },
     prompt_prefix = '-> ',
 
@@ -35,7 +35,21 @@ telescope.setup({
   },
   pickers = {
     find_files = {
-      find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
+      find_command = {
+        'fd',
+        '--type',
+        'f',
+        '--hidden',
+        '--exclude',
+        'node_modules',
+        '--exclude',
+        '.git',
+        '--exclude',
+        'package.json',
+        '--exclude',
+        'package-lock.json',
+        '--strip-cwd-prefix',
+      },
     },
     buffers = {
       -- ignore_current_buffers = true,

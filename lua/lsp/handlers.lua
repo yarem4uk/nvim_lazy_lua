@@ -11,11 +11,12 @@ local keymap = function(bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('<leader>r', vim.lsp.buf.rename, '[R]e[n]ame')
 
   nmap('gd', '<cmd>Telescope lsp_definitions<cr>', '[G]oto [D]efinition')
+  nmap('gi', '<cmd>Telescope lsp_implementations<cr>', '[G]oto [I]mplementation')
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  -- nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   nmap('gk', '<cmd>lua vim.diagnostic.goto_prev()<cr>', '')
   nmap('gj', '<cmd>lua vim.diagnostic.goto_next()<cr>', '')
   nmap('<leader>dl', '<cmd>Telescope diagnostics<cr>', '')

@@ -10,7 +10,6 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-print('la:', lazypath)
 
 require('lazy').setup({
   { 'nvim-lua/popup.nvim' },
@@ -56,6 +55,9 @@ require('lazy').setup({
   -- formating & linting
   { 'jose-elias-alvarez/null-ls.nvim' },
   { 'jay-babu/mason-null-ls.nvim' },
+
+  -- emmet
+  { 'mattn/emmet-vim' },
 
   -- snippets
   {

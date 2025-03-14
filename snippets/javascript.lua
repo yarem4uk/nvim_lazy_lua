@@ -27,13 +27,16 @@ end
 ls.add_snippets('javascript', {
 
   -- console.log
-  s('log', fmt("console.log('{}:', {}){}", { i(1), i(2), i(0) })),
+  s('console', fmt("console.log('{}:', {}){}", { i(1), i(2), i(0) })),
 
   -- export default
   s('edf', fmta('export default (<>) <> {\n  <>\n}<>', { i(1), t('=>'), i(2, 'statement'), i(0) })),
 
   -- iff
-  s('iff', fmt('if {}:\n    {}', { i(1, 'true'), i(0) })),
+  s('iff', fmta('if (<>)\n    <>\n}\n\n<>', { i(1, 'condition'), i(2), i(0) })),
+
+  -- try
+  s('try', fmta('try {\n    <>\n} catch (<>) {\n    <>\n}<>', { i(1), i(2, 'error'), i(3, 'console.error()'), i(0) })),
 
   -- preventDefault
   s('prevent', fmt('{}.preventDefault()', { i(1, 'e') })),
@@ -69,6 +72,11 @@ ls.add_snippets('javascript', {
   s(
     { trig = 'clb', regTrig = true, hidden = true },
     fmta('(<>) <> {\n  <>\n<>}', { i(1), t('=>'), i(2, 'statement'), i(0) })
+  ),
+  --async call back
+  s(
+    { trig = 'cla', regTrig = true, hidden = true },
+    fmta('async (<>) <> {\n  <>\n<>}', { i(1), t('=>'), i(2, 'statement'), i(0) })
   ),
   -- map
   s(
